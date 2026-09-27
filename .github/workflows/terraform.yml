@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - feature/practice
+
   pull_request:
     branches:
       - main
@@ -21,13 +22,17 @@ jobs:
         uses: hashicorp/setup-terraform@v3
 
       - name: Terraform Init
+        working-directory: ./env/prod
         run: terraform init
 
       - name: Terraform Format
+        working-directory: ./env/prod
         run: terraform fmt -check -recursive
 
       - name: Terraform Validate
+        working-directory: ./env/prod
         run: terraform validate
 
       - name: Terraform Plan
-        run: terraform plan -input=false
+        working-directory: ./env/prod
+        run: terraform plan 
